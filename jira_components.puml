@@ -1,0 +1,15 @@
+@startuml Jira_Server_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Jira Server (Tomcat :8081) – Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container_Boundary(c_jira, "Jira Server", "Tomcat :8081") {
+  Component(jiraApp, "Jira", "Web App", "Jira application")
+}
+
+Container_Ext(backend, "Backend API", "Spring Boot", "JiraController")
+
+Rel(backend, jiraApp, "Calls API / Integrates", "HTTP/JSON")
+
+SHOW_LEGEND()
+@enduml

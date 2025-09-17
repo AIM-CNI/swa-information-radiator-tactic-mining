@@ -1,0 +1,27 @@
+@startuml Backend_API_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Backend API (Spring Boot) – Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container_Boundary(c_backend, "Backend API", "Spring Boot") {
+  Component(coffeeCtrl, "CoffeeController", "Spring @RestController", "Coffee endpoints; integrates with Arduino WeightSensor")
+  Component(confluenceCtrl, "ConfluenceController", "Spring @RestController", "Confluence integration")
+  Component(jiraCtrl, "JiraController", "Spring @RestController", "Jira integration")
+  Component(jenkinsCtrl, "JenkinsController", "Spring @RestController", "Jenkins integration")
+  Component(nagiosCtrl, "NagiosController", "Spring @RestController", "Nagios integration")
+}
+
+Container_Ext(arduino, "Arduino", "Arduino", "WeightSensor")
+Container_Ext(confluenceSrv, "Confluence Server", "Tomcat :8080", "Confluence")
+Container_Ext(jiraSrv, "Jira Server", "Tomcat :8081", "Jira")
+Container_Ext(jenkinsSrv, "Jenkins Server", "Tomcat :8082", "Jenkins")
+Container_Ext(nagiosSrv, "Nagios", "Nagios", "MonitoringApp")
+
+Rel(coffeeCtrl, arduino, "Reads measurements", "HTTP/JSON")
+Rel(confluenceCtrl, confluenceSrv, "Calls API", "HTTP/JSON")
+Rel(jiraCtrl, jiraSrv, "Calls API", "HTTP/JSON")
+Rel(jenkinsCtrl, jenkinsSrv, "Calls API", "HTTP/JSON")
+Rel(nagiosCtrl, nagiosSrv, "Queries status", "HTTP/XML")
+
+SHOW_LEGEND()
+@enduml

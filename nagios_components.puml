@@ -1,0 +1,15 @@
+@startuml Nagios_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Nagios – Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container_Boundary(c_nagios, "Nagios", "Nagios") {
+  Component(monitoringApp, "MonitoringApp", "App", "Nagios monitoring application")
+}
+
+Container_Ext(backend, "Backend API", "Spring Boot", "NagiosController")
+
+Rel(backend, monitoringApp, "Queries status", "HTTP/XML")
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,15 @@
+@startuml Confluence_Server_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Confluence Server (Tomcat :8080) – Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container_Boundary(c_confluence, "Confluence Server", "Tomcat :8080") {
+  Component(confluenceApp, "Confluence", "Web App", "Confluence application")
+}
+
+Container_Ext(backend, "Backend API", "Spring Boot", "ConfluenceController")
+
+Rel(backend, confluenceApp, "Calls API / Integrates", "HTTP/JSON")
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,15 @@
+@startuml Web_Client_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Web Client (Chrome on Mac mini) – Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container_Boundary(c_browser, "Web Client", "Chrome on Mac mini") {
+  Component(webui, "Front-end UI", "HTML5/CSS/JS", "User interface rendered in the browser")
+}
+
+Container_Ext(backend, "Backend API", "Spring Boot", "WebSocket endpoint + REST controllers")
+
+Rel(webui, backend, "Real-time updates & commands", "WebSockets")
+
+SHOW_LEGEND()
+@enduml

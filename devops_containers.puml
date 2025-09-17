@@ -1,0 +1,25 @@
+@startuml DevOps_Dashboard_Containers
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+title DevOps Dashboard – Container Diagram
+LAYOUT_LEFT_RIGHT()
+
+System_Boundary(sys, "DevOps Dashboard") {
+  Container(browser, "Web Client", "Chrome on Mac mini (HTML5/CSS/JS)", "Front-end UI rendered in the browser")
+  Container(backend, "Backend API", "Spring Boot", "Hosts Coffee/Confluence/Jira/Jenkins/Nagios controllers")
+}
+
+Container_Ext(arduino, "Arduino", "Arduino", "WeightSensor component")
+Container_Ext(confluenceSrv, "Confluence Server", "Tomcat :8080", "Confluence application")
+Container_Ext(jiraSrv, "Jira Server", "Tomcat :8081", "Jira application")
+Container_Ext(jenkinsSrv, "Jenkins Server", "Tomcat :8082", "Jenkins application")
+Container_Ext(nagiosSrv, "Nagios", "Nagios", "MonitoringApp")
+
+Rel(browser, backend, "Real-time UI", "WebSockets")
+Rel(backend, arduino, "CoffeeController → WeightSensor", "HTTP/JSON")
+Rel(backend, confluenceSrv, "ConfluenceController", "HTTP/JSON")
+Rel(backend, jiraSrv, "JiraController", "HTTP/JSON")
+Rel(backend, jenkinsSrv, "JenkinsController", "HTTP/JSON")
+Rel(backend, nagiosSrv, "NagiosController", "HTTP/XML")
+
+SHOW_LEGEND()
+@enduml

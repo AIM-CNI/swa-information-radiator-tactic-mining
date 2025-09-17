@@ -1,0 +1,15 @@
+@startuml Jenkins_Server_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Jenkins Server (Tomcat :8082) – Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container_Boundary(c_jenkins, "Jenkins Server", "Tomcat :8082") {
+  Component(jenkinsApp, "Jenkins", "Web App", "Jenkins application")
+}
+
+Container_Ext(backend, "Backend API", "Spring Boot", "JenkinsController")
+
+Rel(backend, jenkinsApp, "Calls API / Integrates", "HTTP/JSON")
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,15 @@
+@startuml Arduino_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Arduino – Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container_Boundary(c_arduino, "Arduino", "Arduino") {
+  Component(weightSensor, "WeightSensor", "Component", "Measures coffee machine weight; exposes HTTP/JSON")
+}
+
+Container_Ext(backend, "Backend API", "Spring Boot", "CoffeeController")
+
+Rel(backend, weightSensor, "Reads measurements", "HTTP/JSON")
+
+SHOW_LEGEND()
+@enduml
